@@ -1,6 +1,7 @@
 
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 
 async function userSignup(req, res){
@@ -40,4 +41,34 @@ async function userSignup(req, res){
 }
 
 
-export {userSignup};
+async function userLogin(req, res){
+    try {
+
+        const {email, password} = req.body;
+        const user = await User.findOne({email});
+
+        if(!user){
+            return res.status(400).json({message : "Email or password is incorrect", success: false});
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if(!isPasswordValid){
+            return res.status(400).json({message : "Email or password is incorrect", success: false});
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({id : user._id}, process.env.JWT_SECRET, {expiresIn : "24h"});
+
+        res.status(200).json({message : "Login successful", success: true, user : {name : user.name, email : user.email }, token});
+
+        
+    } catch (error) {
+
+        res.status(500).json({message : "Internal Server Error", success: false});
+        
+    }
+}
+
+
+export {userSignup, userLogin};
