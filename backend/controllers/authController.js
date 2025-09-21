@@ -9,6 +9,7 @@ async function userSignup(req, res){
     try {
 
         const {name, email, password} = req.body;
+        console.log("The data received is ", req.body);
         // Check if user already exists
         const existingUser = await User.findOne({email});
 
