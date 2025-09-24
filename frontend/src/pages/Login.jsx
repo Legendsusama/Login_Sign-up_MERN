@@ -4,11 +4,13 @@ import { ToastContainer } from 'react-toastify'
 import { useState } from 'react';
 import { handleError, handleSuccess } from '../utils.js';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../utils/useAuth.js' 
 
 
 const Login = () => {
 
   const navigate = useNavigate();
+  const { login } = useAuth();
   
   
   const [loginInfo, setLoginInfo] = useState({
@@ -51,12 +53,17 @@ const Login = () => {
           handleSuccess(data.message);
           localStorage.setItem("token", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
+
+          // ✅ Update context
+          login(data.token, data.user);
+
+
           console.log("The Data of user is : ",data.user);
           console.log("The Token is : ",data.token);
 
   
           setTimeout(()=>{
-            navigate("/home")
+            navigate("/")
           }, 2000)
   
         }else if(data.error){
