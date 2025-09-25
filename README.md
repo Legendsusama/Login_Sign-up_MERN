@@ -38,14 +38,13 @@ A secure and scalable user authentication system built with the **MERN stack** (
 - React Router DOM v7
 - JWT Decode
 - React Toastify
-- Axios
 
 ### ✅ Backend
 - Node.js
 - Express.js
 - MongoDB with Mongoose
-- Joi
-- Bcrypt
+- Joi (Server Side input field Validation)
+- Bcrypt (For Password Hashing)
 - JWT (jsonwebtoken)
 - Dotenv
 - CORS
