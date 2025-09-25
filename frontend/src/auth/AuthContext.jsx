@@ -1,4 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
+import { jwtDecode } from "jwt-decode";
+
+
 
 const AuthContext = createContext();
 
@@ -8,6 +11,13 @@ export const AuthProvider = ({ children }) => {
     token: localStorage.getItem("token") || null,
   });
 
+  const isTokenExpired = () => {
+    if (!auth?.token) return true;
+    const { exp } = jwtDecode(auth.token);
+    return Date.now() >= exp * 1000;
+  };
+
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user');
@@ -15,6 +25,13 @@ export const AuthProvider = ({ children }) => {
     if (token && user) {
       setAuth({ user: JSON.parse(user), token });
     }
+
+    
+    if (auth && isTokenExpired()) {
+      logout();
+    }
+
+
   }, []);
 
   const login = (token, user) => {

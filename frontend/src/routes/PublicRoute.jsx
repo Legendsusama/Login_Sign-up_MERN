@@ -2,7 +2,8 @@
 
 
 import { Navigate } from "react-router-dom";
-import useAuth   from "./utils/useAuth";
+
+import useAuth from "../auth/useAuth";
 
 const PublicRoute = ({ children }) => {
   const { auth } = useAuth();

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify'
 import { handleError } from '../utils';
-import useAuth from '../utils/useAuth.js' 
+import useAuth from '../auth/useAuth.js' 
 
 const Home = () => {
 

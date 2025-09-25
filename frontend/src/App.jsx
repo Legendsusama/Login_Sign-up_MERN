@@ -4,8 +4,8 @@ import {Navigate, Routes, Route} from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
-import ProtectedRoute from './ProtectedRoute.jsx'
-import PublicRoute from './PublicRoute.jsx'
+import ProtectedRoute from './routes/ProtectedRoute.jsx'
+import PublicRoute from './routes/PublicRoute.jsx'
 
 
 
